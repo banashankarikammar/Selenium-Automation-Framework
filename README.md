@@ -127,7 +127,7 @@ This framework is designed to evolve into an AI-powered intelligent automation f
 
 👩‍💻 Author
 Banashankari Kammar
-QA Automation Engineer
+QA Automation Engineer | Java | Selenium | TestNG | Automation Framework Development
 GitHub:
 https://github.com/banashankarikammar
 LinkedIn:

@@ -2,34 +2,51 @@ package com.ai.framework.tests;
 
 import com.ai.framework.base.BaseTest;
 import com.ai.framework.constants.FrameworkConstants;
+import com.ai.framework.dataproviders.ExcelDataProvider;
 import com.ai.framework.pages.*;
+import com.ai.framework.retry.RetryAnalyzer;
 import com.ai.framework.utils.ConfigReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class PurchaseTest extends BaseTest{
+public class PurchaseTest extends BaseTest {
 
-    @Test
-    public void verifyUserCanAddProductToCart() throws InterruptedException {
+    private static final Logger logger =
+            LogManager.getLogger(PurchaseTest.class);
+
+    // Add this import
+
+    @Test(
+            dataProvider = "loginData",
+            dataProviderClass = ExcelDataProvider.class,
+            retryAnalyzer = RetryAnalyzer.class
+    )
+    public void verifyUserCanAddProductToCart(String username,
+                                              String password) {
+
+        logger.info("Launching SauceDemo Application");
 
         driver.get(ConfigReader.getProperty("url"));
+
         LoginPage login = new LoginPage(driver);
 
-        login.login(
-                ConfigReader.getProperty("username"),
-                ConfigReader.getProperty("password"));
-        System.out.println("Login Done");
+        logger.info("Logging in with valid credentials");
+
+        login.login(username, password);
+
+        logger.info("Login Successful");
 
         InventoryPage inventory = new InventoryPage(driver);
 
         inventory.addProductToCart(FrameworkConstants.BACKPACK);
-        System.out.println("Product Added");
+
+        logger.info("Product added to cart: {}", FrameworkConstants.BACKPACK);
 
         inventory.openCart();
-        //Thread.sleep(2000);
 
-        System.out.println(driver.getCurrentUrl());
-        System.out.println("Cart Opened");
+        logger.info("Cart opened");
 
         CartPage cart = new CartPage(driver);
 
@@ -37,12 +54,12 @@ public class PurchaseTest extends BaseTest{
                 cart.isProductPresent(FrameworkConstants.BACKPACK)
         );
         //Assert.assertTrue(false);
-        System.out.println("Product Verified");
-       // Thread.sleep(5000);
-        cart.proceedToCheckout();
-        System.out.println("Checkout Clicked");
 
-        System.out.println(driver.getCurrentUrl());
+        logger.info("Product verified successfully in cart");
+
+        cart.proceedToCheckout();
+
+        logger.info("Navigated to Checkout Information page");
 
         CheckoutInformationPage checkout =
                 new CheckoutInformationPage(driver);
@@ -53,33 +70,31 @@ public class PurchaseTest extends BaseTest{
                 "580030"
         );
 
+        logger.info("Checkout information entered");
+
         CheckoutOverviewPage overview =
                 new CheckoutOverviewPage(driver);
 
         Assert.assertEquals(
-
                 overview.getPageTitle(),
-
                 FrameworkConstants.CHECKOUT_OVERVIEW
-
         );
 
-        System.out.println("Checkout Overview Verified");
+        logger.info("Checkout Overview page verified");
 
         overview.clickFinish();
-        System.out.println("Finish Button Clicked");
+
+        logger.info("Finish button clicked");
 
         OrderConfirmationPage confirmation =
                 new OrderConfirmationPage(driver);
+
         Assert.assertEquals(
-
                 confirmation.getConfirmationMessage(),
-
                 FrameworkConstants.ORDER_SUCCESS_MESSAGE
-
         );
 
-        System.out.println("Order Successfully Placed");
+        logger.info("Order placed successfully");
 
     }
 

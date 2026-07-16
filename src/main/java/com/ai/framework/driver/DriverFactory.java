@@ -1,21 +1,22 @@
 package com.ai.framework.driver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.ai.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import com.ai.framework.utils.ConfigReader;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class DriverFactory {
 
-    private static WebDriver driver;
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
 
-        if (driver == null) {
+        if (driver.get() == null) {
 
             String browser = ConfigReader.getProperty("browser");
 
@@ -23,41 +24,53 @@ public class DriverFactory {
 
                 case "chrome":
 
-                    WebDriverManager.chromedriver().setup();
-                    ChromeOptions options = new ChromeOptions();
+                    ChromeOptions chromeOptions = new ChromeOptions();
 
-                    Map<String, Object> prefs = new HashMap<>();
-                    prefs.put("credentials_enable_service", false);
-                    prefs.put("profile.password_manager_enabled", false);
-                    prefs.put("profile.password_manager_leak_detection", false);
-                    prefs.put("autofill.profile_enabled", false);
-                    prefs.put("autofill.address_enabled", false);
-                    prefs.put("autofill.credit_card_enabled", false);
+                    Map<String, Object> chromePrefs = new HashMap<>();
 
-                    options.setExperimentalOption("prefs", prefs);
+                    chromePrefs.put("credentials_enable_service", false);
+                    chromePrefs.put("profile.password_manager_enabled", false);
+                    chromePrefs.put("profile.password_manager_leak_detection", false);
+                    chromePrefs.put("autofill.profile_enabled", false);
+                    chromePrefs.put("autofill.address_enabled", false);
+                    chromePrefs.put("autofill.credit_card_enabled", false);
 
-                    options.addArguments("--incognito");
-                    options.addArguments("--disable-notifications");
-                    options.addArguments("--disable-save-password-bubble");
-                    options.addArguments("--disable-features=PasswordManagerEnabled,AutofillServerCommunication");
+                    chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
-                    driver = new ChromeDriver(options);
+                    chromeOptions.addArguments("--incognito");
+                    chromeOptions.addArguments("--disable-notifications");
+                    chromeOptions.addArguments("--disable-save-password-bubble");
+                    chromeOptions.addArguments("--disable-features=PasswordManagerEnabled,AutofillServerCommunication");
+
+                    driver.set(new ChromeDriver(chromeOptions));
                     break;
 
+                case "edge":
+
+                    EdgeOptions edgeOptions = new EdgeOptions();
+
+                    driver.set(new EdgeDriver(edgeOptions));
+
+                    break;
                 default:
-                    throw new RuntimeException("Browser not supported");
+                    throw new RuntimeException("Browser not supported: " + browser);
             }
 
-            driver.manage().window().maximize();
+            // These must come AFTER creating the driver
+            driver.get().manage().window().maximize();
+            driver.get().manage().deleteAllCookies();
         }
 
-        return driver;
+        return driver.get();
     }
 
     public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+
+        if (driver.get() != null) {
+
+            driver.get().quit();
+            driver.remove();
+
         }
     }
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Automation Suite">
+
+    <test name="Purchase Tests">
+
+        <classes>
+
+            <class name="com.ai.framework.tests.PurchaseTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>

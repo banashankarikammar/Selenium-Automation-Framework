@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-import org.openqa.selenium.WebDriver;
+
 
 public class ScreenshotUtils {
 
@@ -29,7 +29,7 @@ public class ScreenshotUtils {
             folder.mkdirs();
         }
 
-        String destination = "Screenshots/" + testName + ".png";
+        String destination = "../Screenshots/" + testName + ".png";
 
         File target = new File(destination);
 
@@ -39,6 +39,7 @@ public class ScreenshotUtils {
                     source.toPath(),
                     target.toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Screenshot saved at: " + destination);
 
         } catch (IOException e) {
 

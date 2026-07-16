@@ -1,12 +1,17 @@
-# 🤖 AI-Enhanced Selenium Automation Framework
+🤖 AI-Enhanced Selenium Automation Framework
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Selenium](https://img.shields.io/badge/Selenium-4-green)
+![TestNG](https://img.shields.io/badge/TestNG-Framework-red)
+![Maven](https://img.shields.io/badge/Maven-Build-blue)
+![Apache POI](https://img.shields.io/badge/Apache_POI-Excel-success)
+![Log4j2](https://img.shields.io/badge/Log4j2-Logging-yellowgreen)
+![Git](https://img.shields.io/badge/Git-Version_Control-black)
 
-## 📌 Overview
-This project is a scalable UI Automation Framework built using Java, Selenium WebDriver, TestNG, and Maven 
-following industry-standard automation framework design principles.
-The framework follows the Page Object Model (POM) design pattern and supports reusable components, 
-data-driven testing, cross-browser execution, automatic reporting, screenshot capture, and retry mechanisms for reliable test automation.
+📌 Overview
+A scalable and maintainable Selenium Automation Framework developed using **Java, Selenium WebDriver, TestNG, and Maven** following industry-standard automation design principles.
+The framework implements the **Page Object Model (POM)** architecture with reusable utilities, data-driven testing, reporting, logging, retry mechanisms, and screenshot capture to build reliable and maintainable UI automation suites.
 
-## 🚀 Tech Stack
+ 🚀 Tech Stack
 - Java 17
 - Selenium WebDriver 4
 - TestNG
@@ -15,73 +20,115 @@ data-driven testing, cross-browser execution, automatic reporting, screenshot ca
 - Log4j2
 - Extent Reports
 - Git & GitHub
-  
-## 📂 Framework Structure
+
+✨ Framework Features
+- ✅ Page Object Model (POM)
+- ✅ ThreadLocal WebDriver
+- ✅ Base Test Architecture
+- ✅ Cross Browser Support
+- ✅ Data Driven Testing using Excel
+- ✅ Retry Failed Test Cases
+- ✅ TestNG Listeners
+- ✅ Screenshot Capture on Failure
+- ✅ Extent HTML Reports
+- ✅ Log4j2 Logging
+- ✅ Explicit Wait Utility
+- ✅ Reusable Utility Methods
+- ✅ Config Reader
+- ✅ Driver Factory Design
+- ✅ Maven Build Management
+
+📂 Project Structure
 src
+│
 ├── main
 │   ├── java
 │   │   ├── base
 │   │   ├── constants
 │   │   ├── driver
+│   │   ├── listeners
 │   │   ├── pages
 │   │   ├── reports
 │   │   ├── retry
-│   │   ├── listeners
 │   │   └── utils
+│   │
 │   └── resources
 │       ├── config.properties
+│       ├── log4j2.xml
 │       └── TestData.xlsx
-
-src
+│
 └── test
-    ├── java
-    │   ├── tests
-    │   └── dataproviders
+    └── java
+        ├── dataproviders
+        └── tests
 
-## ✨ Framework Features
-- ✅ Page Object Model (POM)
-- ✅ Base Test Architecture
-- ✅ ThreadLocal WebDriver
-- ✅ Cross Browser Support
-- ✅ Config Reader Utility
-- ✅ Data-Driven Testing using Excel
-- ✅ Retry Failed Test Cases
-- ✅ TestNG Listeners
-- ✅ Screenshot on Failure
-- ✅ Extent HTML Reports
-- ✅ Explicit Wait Utility
-- ✅ Common Reusable Actions
-- ✅ Log4j2 Logging
-- ✅ Maven Project Structure
-
-## 🧪 Test Flow
+🧪 Test Workflow
+Launch Browser
+      │
+      ▼
+Open SauceDemo
+      │
+      ▼
 Login
-↓
+      │
+      ▼
 Add Product to Cart
-↓
-Verify Product
-↓
+      │
+      ▼
+Verify Cart
+      │
+      ▼
 Checkout
-↓
+      │
+      ▼
 Place Order
-↓
+      │
+      ▼
 Verify Success Message
 
-## 📊 Reports
-After execution:
-Reports/
-AutomationReport.html
-
-## 📸 Screenshots
-Include screenshots of:
-- Framework Structure
-- Test Execution
-- Extent Report
-
-## ▶ Run Project
+📸 Framework Structure
+![Framework](Images/framework-structure.png)
+▶ Test Execution
+![Execution](Images/execution.png)
+📊 Extent Report
+![Extent Report](Images/extent-report.png)
+📷 Screenshot Capture
+![Screenshot](Images/automation-screenshot.png)
+▶ Run the Project
+Clone Repository
+```bash
+git clone https://github.com/banashankarikammar/Selenium-Automation-Framework.git
+Navigate to Project
+```bash
+cd Selenium-Automation-Framework
+Execute Tests
 ```bash
 mvn clean test
 
-## 👩‍💻 Author
+📋 Prerequisites
+- Java 17+
+- Maven
+- IntelliJ IDEA / Eclipse
+- Chrome Browser
+- Git
+
+🚀 Future Enhancements
+This framework is designed to evolve into an AI-powered intelligent automation framework. Planned enhancements include:
+🤖 AI Self-Healing Locators using Healenium
+👁️ AI Visual Testing with Applitools Eyes
+🧠 AI-Powered Bug Report Generator
+💬 AI Test Failure Analysis using LLMs
+📄 AI-Generated Test Case Documentation
+⚡ Parallel Test Execution
+☁️ Selenium Grid Integration
+🔄 CI/CD Pipeline using Jenkins & GitHub Actions
+🐳 Docker Containerization
+🌐 Cloud Execution (BrowserStack / LambdaTest)
+
+👩‍💻 Author
 Banashankari Kammar
 QA Automation Engineer
+GitHub:
+https://github.com/banashankarikammar
+LinkedIn:
+www.linkedin.com/in/banashankari-kammar-862823225
